@@ -28,7 +28,7 @@ public class InterfaceTest {
 		
 		//获取订单信息及产品所属的供应商,这里假设查到的供应商编号为1
 		Order order = new Order();
-		String agentId = "3";
+		String agentId = "1";
 		//工厂生成业务对象
 		IBusiness business = null;
 		try {
