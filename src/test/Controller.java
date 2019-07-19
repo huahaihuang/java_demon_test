@@ -18,6 +18,7 @@ class Controller implements Runnable{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		System.out.println("");
 		System.out.println("所有任务都完成，任务完成");			
 	}
 }

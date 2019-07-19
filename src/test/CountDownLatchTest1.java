@@ -9,6 +9,25 @@ public class CountDownLatchTest1 {
 	public static void main(String[] args) {
 		ExecutorService service = Executors.newFixedThreadPool(2);
 		final CountDownLatch latch = new CountDownLatch(2);
+		
+	/*	service.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					
+					latch.await();
+				} catch (InterruptedException e) {
+				
+					e.printStackTrace();
+				}
+			
+				System.out.println("所有任务都完成，任务完成");	
+			}
+			
+					
+		});
+	*/
 		for (int i = 0; i < 2; i++) {
 			service.submit(new Runnable() {
 				
@@ -19,9 +38,11 @@ public class CountDownLatchTest1 {
 						Thread.sleep(3000);
 						System.out.println("子线程" + Thread.currentThread().getName() + "执行完毕");
 						
-						latch.countDown();
+						
 					} catch (InterruptedException e) {
 						e.printStackTrace();
+					}finally{
+						latch.countDown();
 					}
 					
 				}
@@ -29,14 +50,15 @@ public class CountDownLatchTest1 {
 		}
 		
 		try {
-			System.out.println("等待2个子线程执行完毕...");
+			System.out.println("等待所有任务执行完毕");
 			latch.await();
-			System.out.println("2个子线程已经执行完毕");
-			System.out.println("继续执行主线程");
-			service.shutdown();
+			System.out.println("所有任务都完成，任务完成");	
 		} catch (InterruptedException e) {
+			
 			e.printStackTrace();
 		}
+		service.shutdown();
+		
 	}
 	
   /*  List<String> days = MyDateUtils.getDays(requestParams.getStartTime(), requestParams.getEndTime());        
